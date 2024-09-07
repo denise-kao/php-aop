@@ -58,6 +58,11 @@ class ClassLoader extends CodeTransformerClassLoader
 
         $filePath = Path::resolve($filePath);
 
+        foreach ($this->options->getExcludePaths() as $path) {
+            if (str_starts_with($filePath, Path::resolve($path))) {
+                return $filePath;
+            }
+        }
 
         // Query cache state
         $cacheState = $this->cacheStateManager->queryCacheState($filePath);
