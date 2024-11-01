@@ -123,6 +123,12 @@ class WovenClassBuilder
         // Set abstract
         $class->setAbstract($reflectionClass->isAbstract());
 
+        // Set attributes
+        $attributes = $reflectionClass->getAttributes();
+        foreach ($attributes as $attribute) {
+            $class->addAttribute($attribute->getName(), $attribute->getArguments());
+        }
+
         return $class;
     }
 
